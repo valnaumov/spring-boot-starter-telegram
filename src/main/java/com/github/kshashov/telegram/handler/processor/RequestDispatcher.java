@@ -68,6 +68,8 @@ public class RequestDispatcher {
                     event.getChat(),
                     event.getUser());
 
+            putSessionVariables(event, sessionHolder);
+
             BaseRequest result = doExecute(request, lookupResult, sessionHolder.getSession());
             metricsService.onUpdateSuccess(method, timerContext);
 
@@ -83,6 +85,12 @@ public class RequestDispatcher {
         }
     }
 
+    private static void putSessionVariables(TelegramEvent event, TelegramSessionResolver.TelegramSessionHolder sessionHolder) {
+        if (event.getUser() != null) {
+            sessionHolder.getSession().getItems().put("user", event.getUser());
+        }
+    }
+
     private BaseRequest doExecute(TelegramRequest request, @NotNull HandlerMethodContainer.HandlerLookupResult lookupResult, @NotNull TelegramSession session) throws IllegalStateException {
         BaseRequest result = new TelegramInvocableHandlerMethod(lookupResult.getHandlerMethod(), argumentResolver, returnValueHandler)
                 .invokeAndHandle(request, session);
@@ -94,6 +102,4 @@ public class RequestDispatcher {
 
         return result;
     }
-
-
 }
