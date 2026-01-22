@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class RequestDispatcherTest {
+public class DefaultRequestDispatcherTest {
     private HandlerMethodContainer handlerMethodContainer;
     private BotHandlerMethodArgumentResolver argumentResolver;
     private BotHandlerMethodReturnValueHandler returnValueHandler;
@@ -110,7 +110,7 @@ public class RequestDispatcherTest {
     }
 
     TelegramCallback doExecute() throws Exception {
-        RequestDispatcher dispatcher = new RequestDispatcher(
+        DefaultRequestDispatcher dispatcher = new DefaultRequestDispatcher(
                 handlerMethodContainer,
                 sessionResolver,
                 argumentResolver,

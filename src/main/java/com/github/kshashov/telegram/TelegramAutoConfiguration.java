@@ -6,6 +6,7 @@ import com.github.kshashov.telegram.config.TelegramBotGlobalProperties;
 import com.github.kshashov.telegram.config.TelegramBotGlobalPropertiesConfiguration;
 import com.github.kshashov.telegram.config.TelegramBotProperties;
 import com.github.kshashov.telegram.handler.*;
+import com.github.kshashov.telegram.handler.processor.DefaultRequestDispatcher;
 import com.github.kshashov.telegram.handler.processor.RequestDispatcher;
 import com.github.kshashov.telegram.handler.processor.arguments.BotHandlerMethodArgumentResolver;
 import com.github.kshashov.telegram.handler.processor.arguments.BotHandlerMethodArgumentResolverComposite;
@@ -129,7 +130,7 @@ public class TelegramAutoConfiguration implements BeanFactoryPostProcessor, Envi
         BotHandlerMethodArgumentResolverComposite argumentResolver = new BotHandlerMethodArgumentResolverComposite(botGlobalProperties.getArgumentResolvers());
         BotHandlerMethodReturnValueHandlerComposite returnValueHandler = new BotHandlerMethodReturnValueHandlerComposite(botGlobalProperties.getReturnValueHandlers());
 
-        return new RequestDispatcher(handlerMethodContainer, sessionResolver, argumentResolver, returnValueHandler, metricsService);
+        return new DefaultRequestDispatcher(handlerMethodContainer, sessionResolver, argumentResolver, returnValueHandler, metricsService);
     }
 
     @Bean
